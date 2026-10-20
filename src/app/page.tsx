@@ -1,69 +1,141 @@
-import Image from "next/image";
+// ====== À MODIFIER ICI SI BESOIN ======
+const PRIX = "45 €";
+const DATE_LIVRAISON = "17 novembre 2026";
+const GARANTIE_JOURS = 30;
+const PAYMENT_URL = "#"; // sera remplacé par le lien Stripe
+// ======================================
+
+const BOUTON = `Réserver ma place fondateur, ${PRIX}/mois`;
+
+const benefices = [
+  {
+    titre: "Un prix avant de quitter votre site",
+    texte:
+      "Le visiteur répond à 4 questions et voit une fourchette tout de suite. Il n'ouvre plus un autre onglet pour demander ailleurs.",
+  },
+  {
+    titre: "Fini les devis qui ne mènent à rien",
+    texte:
+      "Les demandes qui arrivent ont déjà vu votre ordre de grandeur. Votre équipe ne chiffre plus dans le vide.",
+  },
+  {
+    titre: "Les grosses demandes en premier",
+    texte:
+      "Chaque demande arrive classée par montant estimé. Vous répondez d'abord à celles qui comptent.",
+  },
+];
+
+function Bouton() {
+  return (
+    <a
+      href={PAYMENT_URL}
+      className="block w-full rounded-xl bg-brule px-6 py-5 text-center text-xl font-semibold text-white shadow-[0_4px_0_0_#a63a1b] active:translate-y-[2px] active:shadow-[0_2px_0_0_#a63a1b]"
+    >
+      {BOUTON}
+    </a>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main>
+      <section className="bg-sapin px-5 pb-12 pt-10 text-creme">
+        <div className="mx-auto max-w-xl">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-brule">
+            Pour les agences de gestion de boutiques en ligne
+          </p>
+          <h1 className="font-titre text-4xl font-bold leading-tight sm:text-5xl">
+            Vos visiteurs veulent un prix tout de suite. Donnez-le-leur sur
+            votre site.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-5 text-xl text-creme/85">
+            Un questionnaire de 4 questions, une fourchette de prix en 10
+            secondes, et votre équipe ne reçoit que les demandes qui ont déjà
+            vu votre ordre de grandeur.
+          </p>
+          <div className="mt-8">
+            <Bouton />
+            <p className="mt-3 text-center text-sm text-creme/80">
+              Sans engagement, résiliable à tout moment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 py-12">
+        <div className="mx-auto max-w-xl">
+          <h2 className="font-titre text-3xl font-bold text-sapin">
+            Ce que coûte une demande de devis
+          </h2>
+          <p className="mt-4 text-xl">
+            Exemple de calcul : 20 demandes de devis par mois × 45 minutes ={" "}
+            <strong>15 heures passées à chiffrer</strong>, dont une partie ne
+            répondra jamais.
+          </p>
+          <p className="mt-3 text-sm text-encre/70">
+            Ceci est un exemple, pas une statistique. Remplacez par vos
+            propres chiffres.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="border-y border-sapin/15 bg-white px-5 py-12">
+        <div className="mx-auto max-w-xl">
+          <h2 className="font-titre text-3xl font-bold text-sapin">
+            Trois choses qui changent
+          </h2>
+          <ol className="mt-6 space-y-6">
+            {benefices.map((b, i) => (
+              <li key={b.titre} className="flex gap-4">
+                <span className="font-titre text-4xl font-bold leading-none text-brule">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3 className="text-xl font-semibold">{b.titre}</h3>
+                  <p className="mt-1 text-encre/85">{b.texte}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="px-5 py-12">
+        <div className="mx-auto max-w-xl rounded-2xl border-2 border-sapin p-6">
+          <h2 className="font-titre text-3xl font-bold text-sapin">
+            Accès fondateur
+          </h2>
+          <p className="mt-3 text-xl">
+            <strong>{PRIX}/mois</strong>, garanti à vie pour les premiers
+            acheteurs.
+          </p>
+          <ul className="mt-4 space-y-2">
+            <li>
+              Le produit est en cours de construction. Livraison au plus tard
+              le <strong>{DATE_LIVRAISON}</strong>.
+            </li>
+            <li>
+              <strong>Satisfait ou remboursé {GARANTIE_JOURS} jours</strong> :
+              un simple email suffit pour être remboursé intégralement.
+            </li>
+            <li>
+              Remboursement automatique si le produit n'est pas livré à la
+              date annoncée.
+            </li>
+          </ul>
+          <div className="mt-6">
+            <Bouton />
+            <p className="mt-3 text-center text-sm text-encre/70">
+              Sans engagement, résiliable à tout moment.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer className="px-5 pb-10 text-center text-sm text-encre/60">
+        © Chiffrage. Mentions légales, CGV et confidentialité : à venir avant
+        l'ouverture des paiements.
+      </footer>
+    </main>
   );
 }
