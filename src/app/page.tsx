@@ -2,7 +2,7 @@
 const PRIX = "45 €";
 const DATE_LIVRAISON = "15 décembre 2026";
 const GARANTIE_JOURS = 30;
-const PAYMENT_URL = "https://buy.stripe.com/cNi00idm919i0bY3aL4c801"; // sera remplacé par le lien Stripe
+const PAYMENT_URL = "https://buy.stripe.com/cNi00idm919i0bY3aL4c801";
 // ======================================
 
 const BOUTON = `Réserver ma place fondateur, ${PRIX}/mois`;
@@ -131,11 +131,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <footer className="px-5 pb-10 text-center text-sm text-encre/60">
-        © Chiffrage
-        Remplacer tout.
-      </footer>
     </main>
   );
 }
