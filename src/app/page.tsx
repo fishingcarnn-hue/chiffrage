@@ -133,8 +133,8 @@ export default function Home() {
       </section>
 
       <footer className="px-5 pb-10 text-center text-sm text-encre/60">
-        © Chiffrage. Mentions légales, CGV et confidentialité : à venir avant
-        l'ouverture des paiements.
+        © Chiffrage
+        Remplacer tout.
       </footer>
     </main>
   );

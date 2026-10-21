@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Instrument_Sans } from "next/font/google";
-import "./globals.css";
+import "./globals.css"; import Footer from "./footer";
 
 const titre = Fraunces({
   subsets: ["latin"],
@@ -42,7 +42,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr" className={`${titre.variable} ${texte.variable}`}>
-      <body>{children}</body>
+      <body>{children}<Footer /></body>
     </html>
   );
 }
