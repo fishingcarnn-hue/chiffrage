@@ -2,7 +2,7 @@
 const PRIX = "45 €";
 const DATE_LIVRAISON = "15 décembre 2026";
 const GARANTIE_JOURS = 30;
-const PAYMENT_URL = "#"; // sera remplacé par le lien Stripe
+const PAYMENT_URL = "https://buy.stripe.com/cNi00idm919i0bY3aL4c801"; // sera remplacé par le lien Stripe
 // ======================================
 
 const BOUTON = `Réserver ma place fondateur, ${PRIX}/mois`;
