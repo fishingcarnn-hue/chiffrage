@@ -10,10 +10,10 @@ export const INFOS = {
   tva: "TVA non applicable, article 293 B du CGI",
   site: "https://chiffrage-omega.vercel.app",
   prix: "45 €",
-  livraison: "17 novembre 2026",
+  livraison: "15 décembre 2026",
   garantieJours: 30,
   remboursementJours: 14,
-  maj: "20 octobre 2026",
+  maj: "21 octobre 2026",
 };
 
 export function H2({ children }: { children: ReactNode }) {

@@ -1,6 +1,6 @@
 // ====== À MODIFIER ICI SI BESOIN ======
 const PRIX = "45 €";
-const DATE_LIVRAISON = "17 novembre 2026";
+const DATE_LIVRAISON = "15 décembre 2026";
 const GARANTIE_JOURS = 30;
 const PAYMENT_URL = "#"; // sera remplacé par le lien Stripe
 // ======================================

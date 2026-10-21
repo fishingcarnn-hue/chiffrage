@@ -30,7 +30,7 @@ export default function Page() {
 
       <H2>3. Prix et paiement</H2>
       <P>
-        Le prix est de {INFOS.prix} par mois, {INFOS.tva.toLowerCase()}. Il est
+        Le prix est de {INFOS.prix} par mois, {INFOS.tva}. Il est
         prélevé chaque mois par carte bancaire via Stripe, à partir de la
         commande. Le tarif fondateur de {INFOS.prix} par mois est garanti tant
         que l’abonnement n’est pas interrompu.
