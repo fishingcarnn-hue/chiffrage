@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -20,6 +21,11 @@ export default function Widget({ id }: { id: string }) {
   const [choix, setChoix] = useState<string[]>([]);
   const [total, setTotal] = useState<number | null>(null);
   const [erreur, setErreur] = useState("");
+
+  const [nom, setNom] = useState("");
+  const [email, setEmail] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [envoi, setEnvoi] = useState<"attente" | "envoi" | "ok" | "erreur">("attente");
 
   useEffect(() => {
     (async () => {
@@ -45,6 +51,20 @@ export default function Widget({ id }: { id: string }) {
   function recommencer() {
     setChoix([]);
     setTotal(null);
+    setEnvoi("attente");
+  }
+
+  async function envoyer(e: React.FormEvent) {
+    e.preventDefault();
+    setEnvoi("envoi");
+    const { error } = await creerClient().rpc("enregistrer_demande", {
+      p_questionnaire: id,
+      p_reponses: choix,
+      p_nom: nom,
+      p_email: email,
+      p_telephone: telephone,
+    });
+    setEnvoi(error ? "erreur" : "ok");
   }
 
   if (erreur) return <p className="text-brule">{erreur}</p>;
@@ -53,20 +73,70 @@ export default function Widget({ id }: { id: string }) {
 
   if (total !== null) {
     return (
-      <div className="text-center">
-        <p className="text-lg">Votre projet est estimé entre</p>
-        <p className="mt-2 text-4xl font-semibold text-sapin">
-          {euros(total * 0.85)} et {euros(total * 1.15)}
-        </p>
-        <button onClick={recommencer} className="mt-8 text-sapin underline">
-          Recommencer
-        </button>
+      <div>
+        <div className="text-center">
+          <p className="text-lg">Votre projet est estimé entre</p>
+          <p className="mt-2 text-4xl font-semibold text-sapin">
+            {euros(total * 0.85)} et {euros(total * 1.15)}
+          </p>
+        </div>
+
+        {envoi === "ok" ? (
+          <p className="mt-8 rounded-lg bg-white p-4 text-center text-lg text-sapin">
+            Merci ! Votre demande a bien été transmise. L'agence vous recontactera très vite.
+          </p>
+        ) : (
+          <form onSubmit={envoyer} className="mt-8 space-y-3">
+            <p className="font-semibold">Recevez un devis précis : laissez vos coordonnées.</p>
+            <input
+              required
+              value={nom}
+              onChange={(e) => setNom(e.target.value)}
+              placeholder="Votre nom"
+              className="w-full rounded border border-sapin/30 bg-white px-3 py-3"
+            />
+            <input
+              required
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Votre email"
+              className="w-full rounded border border-sapin/30 bg-white px-3 py-3"
+            />
+            <input
+              value={telephone}
+              onChange={(e) => setTelephone(e.target.value)}
+              placeholder="Téléphone (facultatif)"
+              className="w-full rounded border border-sapin/30 bg-white px-3 py-3"
+            />
+            <button
+              type="submit"
+              disabled={envoi === "envoi"}
+              className="w-full rounded-lg bg-brule px-4 py-3 text-lg font-semibold text-white"
+            >
+              {envoi === "envoi" ? "Envoi..." : "Être recontacté"}
+            </button>
+            <p className="text-xs text-encre/60">
+              Vos coordonnées sont transmises à l'agence uniquement pour répondre à votre demande.
+            </p>
+            {envoi === "erreur" && (
+              <p className="text-brule">Une erreur est survenue. Vérifiez votre email et réessayez.</p>
+            )}
+          </form>
+        )}
+
+        <div className="mt-6 text-center">
+          <button onClick={recommencer} className="text-sapin underline">
+            Recommencer
+          </button>
+        </div>
       </div>
     );
   }
 
   const index = choix.length;
-  const question = donnees.questions[index];  if (!question) return <p>Calcul en cours...</p>;
+  const question = donnees.questions[index];
+  if (!question) return <p>Calcul en cours...</p>;
 
   return (
     <div>
