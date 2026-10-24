@@ -1,70 +1,91 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { creerClient } from "../../lib/supabase/client";
 
-type Questionnaire = { id: string; nom: string };
+type Rep = { id: string; libelle: string };
+type Question = { id: string; texte: string; reponses: Rep[] };
+type Donnees = { nom: string; questions: Question[] };
 
-export default function Questionnaires() {
-  const [liste, setListe] = useState<Questionnaire[]>([]);
-  const [nom, setNom] = useState("");
+function arrondir(n: number) {
+  return Math.round(n / 10) * 10;
+}
+
+function euros(n: number) {
+  return arrondir(n).toLocaleString("fr-FR") + " €";
+}
+
+export default function Widget({ id }: { id: string }) {
+  const [donnees, setDonnees] = useState<Donnees | null>(null);
+  const [choix, setChoix] = useState<string[]>([]);
+  const [total, setTotal] = useState<number | null>(null);
   const [erreur, setErreur] = useState("");
 
-  async function charger() {
-    const { data, error } = await creerClient()
-      .from("questionnaires")
-      .select("id, nom")
-      .order("cree_le", { ascending: false });
-    if (error) setErreur(error.message);
-    else setListe(data ?? []);
-  }
-
   useEffect(() => {
-    charger();
+    (async () => {
+      const { data, error } = await creerClient().rpc("obtenir_questionnaire", { p_id: id });
+      if (error || !data) setErreur("Questionnaire introuvable.");
+      else setDonnees(data as Donnees);
+    })();
   }, []);
 
-  async function ajouter(e: React.FormEvent) {
-    e.preventDefault();
-    setErreur("");
-    const { error } = await creerClient().from("questionnaires").insert({ nom });
-    if (error) {
-      setErreur(error.message);
-      return;
+  async function repondre(idReponse: string) {
+    const nouveau = [...choix, idReponse];
+    setChoix(nouveau);
+    if (donnees && nouveau.length === donnees.questions.length) {
+      const { data, error } = await creerClient().rpc("estimer", {
+        p_questionnaire: id,
+        p_reponses: nouveau,
+      });
+      if (error) setErreur(error.message);
+      else setTotal(Number(data));
     }
-    setNom("");
-    charger();
   }
 
-  return (
-    <section className="mt-10">
-      <h2 className="text-xl font-semibold text-sapin">Mes questionnaires</h2>
-      <form onSubmit={ajouter} className="mt-4 flex gap-2">
-        <input
-          required
-          value={nom}
-          onChange={(e) => setNom(e.target.value)}
-          placeholder="Ex : Création de boutique"
-          className="flex-1 rounded border border-sapin/30 bg-white px-3 py-2"
-        />
-        <button type="submit" className="rounded bg-brule px-4 py-2 font-semibold text-white">
-          Créer
+  function recommencer() {
+    setChoix([]);
+    setTotal(null);
+  }
+
+  if (erreur) return <p className="text-brule">{erreur}</p>;
+  if (!donnees) return <p>Chargement...</p>;
+  if (donnees.questions.length === 0) return <p>Ce questionnaire est vide.</p>;
+
+  if (total !== null) {
+    return (
+      <div className="text-center">
+        <p className="text-lg">Votre projet est estimé entre</p>
+        <p className="mt-2 text-4xl font-semibold text-sapin">
+          {euros(total * 0.85)} et {euros(total * 1.15)}
+        </p>
+        <button onClick={recommencer} className="mt-8 text-sapin underline">
+          Recommencer
         </button>
-      </form>
-      {erreur && <p className="mt-3 text-brule">{erreur}</p>}
-      <ul className="mt-4 space-y-2">
-        {liste.map((q) => (
-          <li key={q.id}>
-            <Link
-              href={`/espace/questionnaire?id=${q.id}`}
-              className="block rounded border border-sapin/20 bg-white px-3 py-2 hover:border-sapin"
-            >
-              {q.nom}
-            </Link>
-          </li>
+      </div>
+    );
+  }
+
+  const index = choix.length;
+  const question = donnees.questions[index];
+
+  return (
+    <div>
+      <p className="text-sm text-encre/60">
+        Question {index + 1} sur {donnees.questions.length}
+      </p>
+      <h1 className="mt-2 text-2xl font-semibold text-sapin">{question.texte}</h1>
+      <div className="mt-6 space-y-3">
+        {question.reponses.map((r) => (
+          <button
+            key={r.id}
+            onClick={() => repondre(r.id)}
+            className="block w-full rounded-lg border-2 border-sapin/30 bg-white px-4 py-4 text-left text-lg hover:border-brule"
+          >
+            {r.libelle}
+          </button>
         ))}
-        {liste.length === 0 && <li className="text-encre/60">Aucun questionnaire pour l'instant.</li>}
-      </ul>
-    </section>
+        {question.reponses.length === 0 && <p className="text-encre/60">Aucune réponse définie.</p>}
+      </div>
+    </div>
   );
 }
