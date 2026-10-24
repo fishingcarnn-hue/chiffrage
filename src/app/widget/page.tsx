@@ -10,6 +10,7 @@ async function Contenu({ searchParams }: { searchParams: Promise<{ id?: string }
 export default function Page({ searchParams }: { searchParams: Promise<{ id?: string }> }) {
   return (
     <main className="mx-auto max-w-lg px-4 py-6">
+      <style>{`footer { display: none; }`}</style>
       <Suspense fallback={<p>Chargement...</p>}>
         <Contenu searchParams={searchParams} />
       </Suspense>

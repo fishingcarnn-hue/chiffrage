@@ -129,7 +129,15 @@ export default function Editeur({ id }: { id: string }) {
       <Link href="/espace" className="text-sapin underline">
         Retour à mon espace
       </Link>
-      <h1 className="mt-4 text-3xl font-semibold text-sapin">{nom}</h1>
+      <h1 className="mt-4 text-3xl font-semibold text-sapin">{nom}</h1>      <div className="mt-6 rounded border border-sapin/20 bg-white p-3">
+        <p className="font-semibold">Code à coller sur votre site</p>
+        <textarea
+          readOnly
+          rows={4}
+          className="mt-2 w-full rounded border border-sapin/30 p-2 text-sm"
+          value={`<iframe src="https://chiffrage-omega.vercel.app/widget?id=${id}" width="100%" height="520" style="border:0"></iframe>`}
+        />
+      </div>
       <h2 className="mt-8 text-xl font-semibold text-sapin">Questions</h2>
       <div className="mt-4 space-y-4">
         {questions.map((q, i) => (
