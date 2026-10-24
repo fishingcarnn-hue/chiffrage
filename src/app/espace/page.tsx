@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { creerClientServeur } from "../../lib/supabase/server";
 import Deconnexion from "./deconnexion";
+import Questionnaires from "./questionnaires";
 
 async function Contenu() {
   const supabase = await creerClientServeur();
@@ -11,6 +12,7 @@ async function Contenu() {
     <>
       <h1 className="text-3xl font-semibold text-sapin">Mon espace</h1>
       <p className="mt-3">Connecté en tant que {data.user.email}</p>
+      <Questionnaires />
       <Deconnexion />
     </>
   );
