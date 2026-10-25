@@ -135,7 +135,7 @@ export default function Editeur({ id }: { id: string }) {
           readOnly
           rows={4}
           className="mt-2 w-full rounded border border-sapin/30 p-2 text-sm"
-          value={`<iframe src="https://chiffrage-omega.vercel.app/widget?id=${id}" width="100%" height="520" style="border:0"></iframe>`}
+          value={`<iframe src="https://www.chiffrage-app.fr/widget?id=${id}" width="100%" height="520" style="border:0"></iframe>`}
         />
       </div>
       <h2 className="mt-8 text-xl font-semibold text-sapin">Questions</h2>
