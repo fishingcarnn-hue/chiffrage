@@ -8,7 +8,7 @@ export const INFOS = {
   email: "fishingcarnn@gmail.com",
   telephone: "", // laissez vide pour ne pas l’afficher
   tva: "TVA non applicable, article 293 B du CGI",
-  site: "https://chiffrage-omega.vercel.app",
+  site: "https://www.chiffrage-app.fr",
   prix: "45 €",
   livraison: "15 décembre 2026",
   garantieJours: 30,

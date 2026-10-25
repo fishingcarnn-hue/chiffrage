@@ -18,7 +18,7 @@ const DESCRIPTION =
   "Un questionnaire de 4 questions, une fourchette de prix en 10 secondes. Votre équipe ne reçoit que les demandes qui ont déjà vu votre ordre de grandeur.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://chiffrage-omega.vercel.app"),
+  metadataBase: new URL("https://www.chiffrage-app.fr"),
   title: "Chiffrage : vos visiteurs veulent un prix tout de suite",
   description: DESCRIPTION,
   openGraph: {
