@@ -111,16 +111,16 @@ export default function Home() {
           </p>
           <ul className="mt-4 space-y-2">
             <li>
-              Le produit est en cours de construction. Livraison au plus tard
-              le <strong>{DATE_LIVRAISON}</strong>.
+              Accès immédiat dès votre paiement : connectez-vous, créez votre questionnaire et intégrez-le à votre site.
+              
             </li>
             <li>
               <strong>Satisfait ou remboursé {GARANTIE_JOURS} jours</strong> :
               un simple email suffit pour être remboursé intégralement.
             </li>
             <li>
-              Remboursement automatique si le produit n'est pas livré à la
-              date annoncée.
+              Votre espace s'ouvre dès que le paiement est validé, avec la même adresse mail.
+         
             </li>
           </ul>
           <div className="mt-6">

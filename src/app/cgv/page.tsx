@@ -18,11 +18,11 @@ export default function Page() {
         par montant estimé.
       </P>
 
-      <H2>2. Nature de l’offre : accès anticipé</H2>
+      <H2>2. Nature de l’offre : accès immédiat</H2>
       <P>
-        Au jour de la commande, le service est en cours de construction.
-        L’acheteur réserve une place au tarif fondateur. Le service sera mis à
-        sa disposition au plus tard le <strong>{INFOS.livraison}</strong>. Il
+       Dès la validation du paiement, le service est accessible immédiatement.
+        L’acheteur bénéficie du tarif fondateur. Le service est mis à
+       sa disposition dès la commande. Il
         est considéré comme livré lorsque l’acheteur peut se connecter,
         créer un questionnaire, l’intégrer à son site et recevoir des demandes
         classées par montant estimé.
@@ -44,14 +44,14 @@ export default function Page() {
           justificatif, par simple email à {INFOS.email}.
         </li>
         <li>
-          Si le service n’est pas livré au plus tard le {INFOS.livraison}, les
+          Si le service n’est pas accessible dans les 24 heures suivant le paiement, les
           sommes versées sont remboursées automatiquement, sans démarche de
           votre part.
         </li>
         <li>
           Le remboursement est effectué sur le moyen de paiement utilisé, dans
           un délai de {INFOS.remboursementJours} jours après la demande ou
-          après la date de livraison manquée.
+          après le constat de l’indisponibilité du service.
         </li>
       </Ul>
 
