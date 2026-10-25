@@ -20,11 +20,14 @@ function signatureValide(corps: string, entete: string | null, secret: string) {
 }
 
 export async function POST(request: Request) {
-  const secret = process.env.STRIPE_WEBHOOK_SECRET;
-  if (!secret) return new Response("Configuration manquante", { status: 500 });
+  const secrets = [process.env.STRIPE_WEBHOOK_SECRET, process.env.STRIPE_WEBHOOK_SECRET_LIVE].filter(
+    (s): s is string => Boolean(s)
+  );
+  if (secrets.length === 0) return new Response("Configuration manquante", { status: 500 });
 
   const corps = await request.text();
-  if (!signatureValide(corps, request.headers.get("stripe-signature"), secret)) {
+  const entete = request.headers.get("stripe-signature");
+  if (!secrets.some((s) => signatureValide(corps, entete, s))) {
     return new Response("Signature invalide", { status: 400 });
   }
 
