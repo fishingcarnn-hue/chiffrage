@@ -13,7 +13,7 @@ export const INFOS = {
   livraison: "15 décembre 2026",
   garantieJours: 30,
   remboursementJours: 14,
-  maj: "21 octobre 2026",
+  maj: "25 octobre 2026",
 };
 
 export function H2({ children }: { children: ReactNode }) {
